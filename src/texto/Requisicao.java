@@ -16,7 +16,7 @@ public class Requisicao {
     public double requisicao(String moedaOrigem, String moedaDestino) throws IOException, InterruptedException {
 
         String Link = "https://v6.exchangerate-api.com/v6/";
-        String APIkey = "";
+        String APIkey = "Aqui sua API";
         String Comp = "/latest/";
 
         String url = Link + APIkey + Comp + moedaOrigem;
