@@ -1,5 +1,7 @@
 package texto;
 
+import conversor.Logs;
+
 public class Mensagens {
 
     public void cabecalho() {
@@ -212,17 +214,30 @@ public class Mensagens {
 
     public void resultado(String valor, String moedaOrigem, String moedaDestino, String resultado) {
         System.out.println(valor + " " + moedaOrigem + " = " + resultado + " " +moedaDestino);
+        Logs.Logger(valor, moedaOrigem, moedaDestino, resultado);
     }
 
     public void posResultado() {
         System.out.println("""
+                
                 Deseja fazer uma nova conversão?
-                1-SIM 2-NÃO
-                Digite a opção desejada:
-                """);
+                1-SIM 2-NÃO 3-LOG
+                Digite a opção desejada:""");
     }
 
     public void mensagemFinal() {
         System.out.println("Finalizado com sucesso!");
+    }
+
+    public void Log(){
+        System.out.println("Log:");
+    }
+
+    public void erroEntrada() {
+        System.out.println("Entrada inválida. Por favor, insira um número decimal válido.");
+    }
+
+    public void erroMoeda() {
+        System.out.println("Entrada inválida. Por favor, insira um número decimal válido.");
     }
 }

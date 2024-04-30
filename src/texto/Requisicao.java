@@ -15,28 +15,40 @@ public class Requisicao {
 
     public double requisicao(String moedaOrigem, String moedaDestino) throws IOException, InterruptedException {
 
-
         String Link = "https://v6.exchangerate-api.com/v6/";
-        String APIkey = "0af3d81119af8258856e3aef";
+        String APIkey = "";
         String Comp = "/latest/";
 
         String url = Link + APIkey + Comp + moedaOrigem;
 
         HttpClient client = HttpClient.newHttpClient();
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
-                url
-        )).build();
+        int tentativas = 0;
+        double Cambio = 0.0;
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        while (tentativas < 3) {
+            try {
+                HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
+                        url
+                )).build();
 
-        String responseBody = response.body();
-        String json = responseBody;
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+                String responseBody = response.body();
+                String json = responseBody;
 
-        JsonObject cambio = jsonObject.getAsJsonObject("conversion_rates");
+                JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 
-        return(cambio.get(moedaDestino).getAsDouble());
+                JsonObject cambio = jsonObject.getAsJsonObject("conversion_rates");
+
+                Cambio = cambio.get(moedaDestino).getAsDouble();
+                break;
+            } catch (IOException e) {
+                tentativas++;
+                System.out.println("Erro ao realizar a requisição da API. Tentativa: " + tentativas);
+                Thread.sleep(1000);
+            }
+        }
+        return Cambio;
     }
 }
