@@ -13,10 +13,10 @@ public class Requisicao {
 
     Gson gson = new Gson();
 
-    public double requisicao(String moedaOrigem, String moedaDestino) throws IOException, InterruptedException {
+    public double requisicao(String moedaOrigem, String moedaDestino) throws InterruptedException {
 
         String Link = "https://v6.exchangerate-api.com/v6/";
-        String APIkey = "Aqui sua API";
+        String APIkey = "";
         String Comp = "/latest/";
 
         String url = Link + APIkey + Comp + moedaOrigem;
